@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SwiftLink</title>
+<link rel="stylesheet" href="/static/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<nav>
+<h2>SwiftLink</h2>
+<div>
+<a href="/">Shorten</a>
+<a href="/dashboard">Dashboard</a>
+</div>
+</nav>
+
+<div class="container">
+
+<h1>Shorten your links</h1>
+
+<form method="POST">
+
+<input type="text" name="url" placeholder="Original URL" required>
+
+<input type="text" name="custom" id="aliasInput" placeholder="Custom alias (optional)" onkeyup="checkAlias()">
+<p id="aliasStatus" class="alias-status"></p>
+
+<select name="expiry">
+<option value="Never">Never</option>
+<option value="1">1 Day</option>
+<option value="7">7 Days</option>
+<option value="30">30 Days</option>
+</select>
+<p class="hint">
+This link will stop working after the selected time.
+</p>
+<div class="password-field">
+
+<input 
+type="password" 
+name="password" 
+id="passwordInput"
+placeholder="Password protection (optional)"
+>
+
+<button type="button" onclick="togglePassword()" class="show-btn">
+Show
+</button>
+
+</div>
+
+<p class="hint">
+Visitors must enter this password before accessing the link.
+</p>
+<button type="submit">Shorten URL</button>
+
+</form>
+
+{% if short_url %}
+
+<div class="result">
+
+<p>Your shortened link:</p>
+
+<a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+
+<button onclick="copyLink()">Copy</button>
+
+<br><br>
+
+
+</div>
+
+{% endif %}
+
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

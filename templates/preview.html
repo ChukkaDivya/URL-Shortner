@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Link Preview</title>
+
+<style>
+
+body{
+font-family:Segoe UI, Arial;
+background:#f5f7fb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.card{
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+text-align:center;
+max-width:450px;
+width:90%;
+}
+
+.card h2{
+margin-bottom:20px;
+}
+
+.url{
+color:#4f46e5;
+font-weight:600;
+word-break:break-all;
+margin-bottom:25px;
+}
+
+.continue-btn{
+display:inline-block;
+background:#4f46e5;
+color:white;
+padding:12px 25px;
+border-radius:8px;
+text-decoration:none;
+}
+
+.continue-btn:hover{
+background:#4338ca;
+}
+
+.note{
+margin-top:15px;
+font-size:13px;
+color:#777;
+}
+
+.back-btn{
+background:#e5e7eb;
+color:#333;
+border:none;
+padding:12px 20px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.back-btn:hover{
+background:#d1d5db;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>You are about to visit</h2>
+
+<p class="url">{{link.original_url}}</p>
+
+<a href="{{link.original_url}}" target="_blank"></a>
+
+<div style="margin-top:20px;">
+
+<a href="{{link.original_url}}" target="_blank">
+<button class="continue-btn">Continue</button>
+</a>
+
+<a href="/" style="margin-left:10px;">
+<button class="back-btn">Go Back</button>
+</a>
+
+</div>
+
+
+<p class="note">
+This link was shortened using SwiftLink.
+</p>
+
+</div>
+
+</body>
+</html>
