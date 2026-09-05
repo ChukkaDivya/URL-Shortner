@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Internal Server Error - SwiftLink{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="text-align: center;">
+        <h1 style="font-size: 64px; margin: 0; color: #dd6b20;">500</h1>
+        <h2>Server Error</h2>
+        <p class="auth-subtitle">Something went wrong on our server. Please try again later.</p>
+
+        <div style="margin-top: 25px;">
+            <a href="{{ url_for('links.index') }}" class="btn-primary" style="display: inline-block; width: auto; padding: 10px 24px;">Return to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

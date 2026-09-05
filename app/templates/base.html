@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SwiftLink - Fast & Secure URL Shortener{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+    <h2><a href="{{ url_for('links.index') }}" style="text-decoration: none; color: inherit;">SwiftLink</a></h2>
+    <div class="nav-links">
+        <a href="{{ url_for('links.index') }}">Shorten</a>
+        <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+        {% if current_user.is_authenticated %}
+            <span class="user-badge">👤 {{ current_user.username }}</span>
+            <a href="{{ url_for('auth.logout') }}" class="auth-btn logout-btn">Logout</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}" class="auth-btn">Login</a>
+            <a href="{{ url_for('auth.register') }}" class="auth-btn register-btn">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="flash-messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

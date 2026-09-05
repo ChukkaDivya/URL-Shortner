@@ -1,51 +1,76 @@
-function copyLink(){
+/* Synced with app/static/script.js */
+function copyLink(customUrl) {
+    let linkToCopy = customUrl;
+    if (!linkToCopy) {
+        const resultLink = document.querySelector(".result a");
+        if (resultLink) {
+            linkToCopy = resultLink.innerText;
+        }
+    }
 
-let link = document.querySelector(".result a").innerText
-
-navigator.clipboard.writeText(link)
-
-alert("Copied!")
+    if (linkToCopy) {
+        navigator.clipboard.writeText(linkToCopy).then(() => {
+            alert("Copied!");
+        }).catch(err => {
+            console.error("Failed to copy link: ", err);
+        });
+    }
 }
 
-function checkAlias(){
+function checkAlias() {
+    let aliasInput = document.getElementById("aliasInput");
+    if (!aliasInput) return;
 
-let alias = document.getElementById("aliasInput").value
+    let alias = aliasInput.value.replace(/[^a-zA-Z0-9_-]/g, "");
 
-alias = alias.replace(/[^a-zA-Z0-9]/g,"")
+    let status = document.getElementById("aliasStatus");
+    if (!status) return;
 
-if(alias.length < 2){
-document.getElementById("aliasStatus").innerHTML = ""
-return
+    if (alias.length < 2) {
+        status.innerHTML = "";
+        return;
+    }
+
+    fetch("/check-alias?alias=" + encodeURIComponent(alias))
+        .then(res => res.json())
+        .then(data => {
+            if (data.available) {
+                status.innerHTML = "<span style='color:green'>✓ Alias available</span>";
+            } else {
+                status.innerHTML = "<span style='color:red'>✗ Alias already taken or reserved</span>";
+            }
+        })
+        .catch(err => {
+            console.error("Error checking alias availability:", err);
+        });
 }
 
-fetch("/check-alias?alias=" + alias)
-.then(res => res.json())
-.then(data => {
+function togglePassword(inputId = "passwordInput", btnElement = null) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
 
-let status = document.getElementById("aliasStatus")
-
-if(data.available){
-status.innerHTML =
-"<span style='color:green'>✓ Alias available</span>"
-}
-else{
-status.innerHTML =
-"<span style='color:red'>✗ Alias already taken</span>"
-}
-
-})
-
+    if (input.type === "password") {
+        input.type = "text";
+        if (btnElement) {
+            btnElement.textContent = "Hide";
+        }
+    } else {
+        input.type = "password";
+        if (btnElement) {
+            btnElement.textContent = "Show";
+        }
+    }
 }
 
+function searchLinks() {
+    let searchInput = document.getElementById("searchInput");
+    if (!searchInput) return;
 
-function togglePassword(){
+    let input = searchInput.value.toLowerCase();
+    let rows = document.querySelectorAll("tbody tr");
 
-let input = document.getElementById("passwordInput")
-
-if(input.type === "password"){
-input.type = "text"
-}else{
-input.type = "password"
-}
-
+    rows.forEach(row => {
+        let text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+    });
 }

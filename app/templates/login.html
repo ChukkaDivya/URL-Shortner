@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Login - SwiftLink{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Welcome Back</h2>
+        <p class="auth-subtitle">Sign in to manage your shortened links</p>
+
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            <div class="form-group">
+                <label for="identity">Username or Email</label>
+                <input type="text" id="identity" name="identity" value="{{ identity or '' }}" placeholder="Enter username or email" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                    <button type="button" class="toggle-password-btn" onclick="togglePassword('password', this)">Show</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+
+        <p class="auth-footer">
+            Don't have an account? <a href="{{ url_for('auth.register') }}">Register here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Link Expired - SwiftLink{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="text-align: center;">
+        <h2 style="color: #e53e3e;">Link Expired</h2>
+        <p class="auth-subtitle">The short link <strong>/{{ link.short_code }}</strong> has expired and is no longer accessible.</p>
+
+        <div style="margin-top: 25px;">
+            <a href="{{ url_for('links.index') }}" class="btn-primary" style="display: inline-block; width: auto; padding: 10px 24px;">Create New Short Link</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

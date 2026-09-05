@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}SwiftLink - Shorten your links{% endblock %}
+
+{% block content %}
+<div class="container">
+
+<h1>Shorten your links</h1>
+
+<form method="POST" action="{{ url_for('links.index') }}">
+
+    <input type="url" name="url" placeholder="Original URL (e.g. https://example.com)" required>
+
+    <input type="text" name="custom" id="aliasInput" placeholder="Custom alias (optional)" onkeyup="checkAlias()">
+    <p id="aliasStatus" class="alias-status"></p>
+
+    <select name="expiry">
+        <option value="Never">Never</option>
+        <option value="1">1 Day</option>
+        <option value="7">7 Days</option>
+        <option value="30">30 Days</option>
+    </select>
+    <p class="hint">
+        This link will stop working after the selected time.
+    </p>
+
+    <div class="password-wrapper" style="margin-bottom: 10px;">
+        <input 
+            type="password" 
+            name="password" 
+            id="passwordInput"
+            placeholder="Password protection (optional)"
+        >
+        <button type="button" onclick="togglePassword('passwordInput', this)" class="toggle-password-btn">
+            Show
+        </button>
+    </div>
+    <p class="hint">
+        Visitors must enter this password before accessing the link.
+    </p>
+
+    <button type="submit">Shorten URL</button>
+
+</form>
+
+{% if short_url %}
+<div class="result">
+    <p>Your shortened link:</p>
+    <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+    <button onclick="copyLink()">Copy</button>
+</div>
+{% endif %}
+
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+</div>
+{% endblock %}

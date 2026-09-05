@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Link Preview - SwiftLink{% endblock %}
+
+{% block content %}
+<div class="preview-wrapper">
+    <div class="card preview-card">
+        <h2>You are about to visit</h2>
+
+        <p class="preview-url">{{ link.original_url }}</p>
+
+        <div class="preview-actions">
+            <a href="{{ link.original_url }}" target="_blank" rel="noopener noreferrer" class="continue-btn">
+                Continue
+            </a>
+
+            <a href="{{ url_for('links.index') }}" class="back-btn">
+                Go Back
+            </a>
+        </div>
+
+        <p class="note">
+            This link was shortened using SwiftLink.
+        </p>
+    </div>
+</div>
+{% endblock %}
