@@ -18,4 +18,4 @@ EXPOSE 5000
 
 ENV FLASK_ENV=production
 
-CMD ["sh", "-c", "flask db upgrade && gunicorn --bind 0.0.0.0:$PORT wsgi:app"]
+CMD ["sh", "-c", "flask --app wsgi:app db upgrade && gunicorn --bind 0.0.0.0:$PORT wsgi:app"]
